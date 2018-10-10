@@ -15,6 +15,7 @@ var connexion = mysql.createConnection({
 const PROJETS_ALL_QUERY = 'SELECT * FROM projets';
 const PROJETS_CV_QUERY = 'SELECT * FROM projets WHERE type="cyclev"';
 const PROJETS_S_QUERY = 'SELECT * FROM projets WHERE type="scrum"';
+const PROJETS_ADD_QUERY = 'INSERT INTO projets (titre,description,type) VALUES ("Nom projet","Projet ajouté","cylev")';
 const PERSONNES_QUERY = 'SELECT * FROM personnes';
 const LIVRABLES_TEMP_QUERY = 'SELECT * FROM livrables WHERE livrable_type_r=1';
 const LIVRABLES_DOC_QUERY = 'SELECT * FROM livrables WHERE livrable_type_r=2';
@@ -79,6 +80,20 @@ app.get('/api/scrum_projets', (req,res) => {
     });
 });
 
+/////////////////////////
+/////Ajout projet////////
+/////////////////////////
+
+app.get('/api/add_projet', (req,res) => {
+    connexion.query(PROJETS_ADD_QUERY, function (err, rows){
+        if(err) throw err;
+        console.log("Projet ajouté!");
+        res.send(rows);
+    });
+});
+
+
+
 /////////////////////////////////
 /////Toutes les personnes////////
 /////////////////////////////////
@@ -130,5 +145,11 @@ app.get('/api/temp_livrables', (req,res) => {
         res.send(rows);
     });
 });
+
+
+app.get('/', function (req, res) {
+    //res.sendFile(__dirname + '/html/index.html');
+    res.send("Erreur");
+   });
 
 app.listen(port, () => console.log(`Server started on ${port}`)); 
