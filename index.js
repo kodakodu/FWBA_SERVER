@@ -5,6 +5,8 @@ const cors = require('cors');
 const port = 5000;
 const app = express();
 
+app.use(cors());
+
 var connexion = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -40,7 +42,7 @@ connexion.connect(function(err){
 /////Tous les projets////////
 /////////////////////////////
 
-app.get('/api/all_projets', (req,res) => {
+app.get('/api/all_projects', (req,res) => {
     // const projets = [
     //     {id: 1, projet_id: 1, title: 'Projet 1', type: 'scrum'},
     //     {id: 2, projet_id: 1, title: 'Projet 2', type: 'cyclev'},
@@ -60,7 +62,7 @@ app.get('/api/all_projets', (req,res) => {
 /////Les projets cyclev////////
 ///////////////////////////////
 
-app.get('/api/cyclev_projets', (req,res) => {
+app.get('/api/cyclev_projects', (req,res) => {
     connexion.query(PROJETS_CV_QUERY, function (err, rows){
         if(err) throw err;
         console.log(rows);
@@ -72,7 +74,7 @@ app.get('/api/cyclev_projets', (req,res) => {
 /////Les projets scrum////////
 //////////////////////////////
 
-app.get('/api/scrum_projets', (req,res) => {
+app.get('/api/scrum_projects', (req,res) => {
     connexion.query(PROJETS_S_QUERY, function (err, rows){
         if(err) throw err;
         console.log(rows);
@@ -84,7 +86,7 @@ app.get('/api/scrum_projets', (req,res) => {
 /////Ajout projet////////
 /////////////////////////
 
-app.get('/api/add_projet', (req,res) => {
+app.get('/api/add_project', (req,res) => {
     connexion.query(PROJETS_ADD_QUERY, function (err, rows){
         if(err) throw err;
         console.log("Projet ajouté!");
@@ -98,7 +100,7 @@ app.get('/api/add_projet', (req,res) => {
 /////Toutes les personnes////////
 /////////////////////////////////
 
-app.get('/api/personnes', (req,res) => {
+app.get('/api/persons', (req,res) => {
 
     connexion.query(PERSONNES_QUERY, function (err, rows){
         if(err) throw err;
